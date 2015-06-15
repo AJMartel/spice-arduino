@@ -48,10 +48,10 @@ void loop() {
 
 void changeflag() {
  
- if (flag == 0) { 
-  flag = 7;
+ if (flag < 7) { 
+  flag = flag + 1;
  } else {
-  flag = flag -1;
+  flag = 0;
  } 
   
 }

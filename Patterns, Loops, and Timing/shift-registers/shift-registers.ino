@@ -1,8 +1,8 @@
 #include <Pinball.h>
 
 int datapin = 10;     // Data pin
-int clkpin = 12;      // Clock pin
 int latchpin = 11;    // Latch pin
+int clkpin = 12;      // Clock pin
 int numreg = 1;       // Number of shift registers in series
 
 // Declare object named shregs 

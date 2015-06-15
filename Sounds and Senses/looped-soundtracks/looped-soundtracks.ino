@@ -80,6 +80,7 @@ void writeoutputs() {
     spkr.start(melody3, timing3, 11);   // Last argument is the length of song
   }  
   
+  }
   if (flag3 == 1) {
     if (loopstate == 1) {
       spkr.loopstop();
@@ -90,6 +91,5 @@ void writeoutputs() {
       loopstate = 1;
     }
    }
-  }
 }
 
