@@ -5,7 +5,7 @@ Pb_timedevent dothis(blinkmyled);
 int values[] = { 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0};
 int timing[] = { 200, 200, 200, 200, 200, 200, 500, 500, 500, 500, 500, 500, 200, 200, 200, 200, 200, 200};  // milliseconds
 
-int buttonpin = 3;
+int buttonpin = 4;
 Pb_switch mysw(100);   // Using Pb_switch to debounce
 
 int ledpin = 2;
