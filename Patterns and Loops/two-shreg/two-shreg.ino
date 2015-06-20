@@ -1,6 +1,6 @@
 #include <Pinball.h>
 
-// Connect two 74HC595s' in series
+// Connect two 74HC595s in series
 // Connect LEDs with 1k resistors to their outputs
 
 int datapin = 10;     // Data pin

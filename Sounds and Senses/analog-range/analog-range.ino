@@ -11,7 +11,7 @@ int sensorValue0 = 0; //value read from proximity sensor
 int sensorValue1 = 0; //value read from piezo sensor
 int sensorValue2 = 0; //value read from force sensitive resistor
 
-// Record the minimum values of your sensors below, if needed
+// Record the minimum and maximum values of your sensors below, if needed
 int Min0 = 250;
 int Min1 = 10;
 int Min2 = 10;
@@ -20,7 +20,7 @@ int Max0 = 1023;
 int Max1 = 1023;
 int Max2 = 1023;
 
-int speakerPin = 3; // speaker output pin
+int speakerPin = 13; // speaker output pin
 int speakerVal = 0; // initial value output to speaker
 
 void setup(){

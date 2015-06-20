@@ -14,7 +14,7 @@ int Min0 = 250;
 int Min1 = 10;
 int Min2 = 10;
 
-int speakerPin = 3; // speaker output pin
+int speakerPin = 13; // speaker output pin
 int speakerVal = 0; // initial value output to speaker
 
 void setup(){

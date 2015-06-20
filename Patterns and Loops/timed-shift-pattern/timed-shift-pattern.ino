@@ -8,7 +8,7 @@ int timing[] = {250, 250, 100, 100, 100, 100};  // milliseconds
 int val2[] = {0, 1, 2, 3, 4, 5, 6, 7};
 int tim2[] = {250, 250, 250, 250, 250, 250, 250, 250};
 
-int buttonpin = 3;
+int buttonpin = 4;
 Pb_switch mysw(50);   // Using Pb_switch to debounce
 
 

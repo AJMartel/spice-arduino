@@ -14,7 +14,7 @@ int loopstate;
 
 Pb_switch mysw0(100), mysw1(100), mysw2(100), mysw3(100);
 
-Pb_speaker spkr(3);
+Pb_speaker spkr(13);
 
 
 
@@ -40,7 +40,7 @@ void setup() {
 void loop() {
 
   readinputs();       // Read all the input sensors
-//  dologic();          // Perform logical operations
+  dologic();          // Perform logical operations
   writeoutputs();     // Control all output components
   
 }
@@ -60,13 +60,7 @@ void readinputs() {
 
 
 void dologic(){
-}
-
-void writeoutputs() {
-
-  spkr.update();
-  
-  if ( (flag0 + flag1 + flag2) > 0 ) {  // If at least one switch has been pushed
+    if ( (flag0 + flag1 + flag2) > 0 ) {  // If at least one switch has been pushed
   
   if (flag0 == 1) {
     spkr.start(melody1, timing1, 8);   // Last argument is the length of song
@@ -91,5 +85,12 @@ void writeoutputs() {
       loopstate = 1;
     }
    }
+}
+
+void writeoutputs() {
+
+  spkr.update();
+  
+
 }
 

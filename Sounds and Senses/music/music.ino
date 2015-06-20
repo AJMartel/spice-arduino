@@ -10,7 +10,7 @@ int flag0, flag1, flag2;
 
 Pb_switch mysw0(100), mysw1(100), mysw2(100);
 
-Pb_speaker spkr(3);
+Pb_speaker spkr(13);
 
 // Check notes.h in library folder for note definitions
 int melody1[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};

@@ -8,7 +8,7 @@ int timing[] = { 200, 200, 200, 200, 200, 200, 500, 500, 500, 500, 500, 500, 200
 int val2[] = {1, 0};
 int tim2[] = {1000, 1000};
 
-int buttonpin = 3;
+int buttonpin = 4;
 Pb_switch mysw(200);   // Using Pb_switch to debounce
 
 int ledpin = 2;
