@@ -162,12 +162,12 @@ void playsong(int n) {
     songlights.start(melody1, timing1, 9);
     break;
   case 2:      // Play song number 2
-    spkr.start(melody2, timing2, 3);
-    songlights.start(melody2, timing2, 3);
+      spkr.start(coinnotes, cointimes, coinlength);
+    songlights.start(coinnotes, cointimes, coinlength);
     break;
   case 3:      // Play song number 3
-    spkr.start(melody3, timing3, 12);
-    songlights.start(melody3, timing3, 12);
+    spkr.start(batmannotes, batmantimes, 12);
+    songlights.start(batmannotes, batmantimes, 12);
     break;
   case 4:      // Play song number 4
     spkr.start(marionotes2, mariotimes2, 61);
@@ -177,6 +177,7 @@ void playsong(int n) {
     spkr.stop(); songlights.stop(); lednotes(0);
     break;
   }
+}
 
 void lednotes(int note) {
  // Makes LED light up based on note frequency!
@@ -186,21 +187,21 @@ void lednotes(int note) {
  
  if ( note < NOTE_G2) { // do nothing 
  } 
- else if ( note < NOTE_C3 ) { bitWrite(serdata[0], 0, 1); }
- else if ( note < NOTE_DS3 ) { bitWrite(serdata[0], 1, 1); }
- else if ( note < NOTE_FS3 ) { bitWrite(serdata[0], 2, 1); }
- else if ( note < NOTE_B3 ) { bitWrite(serdata[0], 3, 1); }
- else if ( note < NOTE_C4 ) { bitWrite(serdata[0], 4, 1); }
- else if ( note < NOTE_CS4 ) { bitWrite(serdata[0], 5, 1); }
- else if ( note < NOTE_D4 ) { bitWrite(serdata[0], 6, 1); }
- else if ( note < NOTE_DS4 ) { bitWrite(serdata[0], 7, 1); }
- else if ( note < NOTE_E4 ) { bitWrite(serdata[1], 0, 1); }
- else if ( note < NOTE_F4 ) { bitWrite(serdata[1], 1, 1); }
- else if ( note < NOTE_FS4 ) { bitWrite(serdata[1], 2, 1); }
- else if ( note < NOTE_G4 ) { bitWrite(serdata[1], 3, 1); }
- else if ( note < NOTE_A4 ) { bitWrite(serdata[1], 4, 1); }
- else if ( note < NOTE_AS4 ) { bitWrite(serdata[1], 5, 1); }
- else if ( note < NOTE_B4 ) { bitWrite(serdata[1], 6, 1); }
+ else if ( note < NOTE_C3 ) { bitWrite(serdata[1], 0, 1); }
+ else if ( note < NOTE_DS3 ) { bitWrite(serdata[1], 1, 1); }
+ else if ( note < NOTE_FS3 ) { bitWrite(serdata[1], 2, 1); }
+ else if ( note < NOTE_B3 ) { bitWrite(serdata[1], 3, 1); }
+ else if ( note < NOTE_C4 ) { bitWrite(serdata[1], 4, 1); }
+ else if ( note < NOTE_CS4 ) { bitWrite(serdata[1], 5, 1); }
+ else if ( note < NOTE_D4 ) { bitWrite(serdata[1], 6, 1); }
+ else if ( note < NOTE_DS4 ) { bitWrite(serdata[1], 7, 1); }
+ else if ( note < NOTE_E4 ) { bitWrite(serdata[0], 0, 1); }
+ else if ( note < NOTE_F4 ) { bitWrite(serdata[0], 1, 1); }
+ else if ( note < NOTE_FS4 ) { bitWrite(serdata[0], 2, 1); }
+ else if ( note < NOTE_G4 ) { bitWrite(serdata[0], 3, 1); }
+ else if ( note < NOTE_A4 ) { bitWrite(serdata[0], 4, 1); }
+ else if ( note < NOTE_AS4 ) { bitWrite(serdata[0], 5, 1); }
+ else if ( note < NOTE_B4 ) { bitWrite(serdata[0], 6, 1); }
  else  { bitWrite(serdata[0], 7, 1); }
  
  shregs.update(serdata); 
