@@ -3,16 +3,19 @@
 #include "tunelibrary.h"
 
 //_________________________________________PIN DEFINITIONS_______
-// These are the button pins
+// Jukebox needs four buttons for control
+// button0 - Select previous song
+// button1 - Start playing song
+// button2 - Select next song
+// button3 - Stop playing song
 int button0 = 4, button1 = 5, button2 = 6, button3 = 7;
+
+// Use buttons as switches
+Pb_switch mysw0(100), mysw1(100), mysw2(100), mysw3(100);
+
 
 // Pinball scoreboard
 int clkpin = 8, diopin = 9;
-
-//_________________________________________SPECIAL OBJECTS_______
-
-// Define buttons as switches
-Pb_switch mysw0(100), mysw1(100), mysw2(100), mysw3(100);
 
 // Declare scoreboard object named myboard
 Pb_scoreboard myboard(clkpin, diopin);
@@ -23,7 +26,7 @@ Pb_scoreboard myboard(clkpin, diopin);
 // Use speaker object
 Pb_speaker spkr(13);
 
-// Use shift register
+// Use shift registers to control LEDs on jukebox
 Pb_outputs shregs(10, 11, 12, 2); // (datapin, clkpin, latchpin, numreg)
 
 // Use timed events to avoid using delay
@@ -61,7 +64,8 @@ void setup() {
   digitalWrite(button3, 1);
   
  // Initial number values
-  flag0 = 0; flag1 = 0; flag2 = 0; flag3 = 0; num = 0;
+  num = 0;
+  flag0 = 0; flag1 = 0; flag2 = 0; flag3 = 0;
 
   myboard.showdisplay(num);  
   
@@ -73,18 +77,12 @@ void setup() {
 
 void loop() {
   
-  // Read all the inputs
-  readinputs();
-  
-  // Figure out what to do based on inputs
-  dologic();
-  
-  // Write to the outputs
-  writeoutputs();
-
+  readinputs();   // Read all the inputs
+  dologic();    // Figure out what to do based on inputs
+  writeoutputs();  // Control all output components
 }
 
-//____________________________________________INPUT STUFF___________
+//____________________________________________INPUTS___________
 
 void readinputs() {
 
@@ -98,13 +96,13 @@ void readinputs() {
   
 }
 
-//____________________________________________LOGIC STUFF___________
+//____________________________________________LOGIC___________
 
 void dologic() {
   
   if (flag0 == 1) {   // If switch 0 has been pushed, decrease number
     num = num - 1;
-    if (num < 0) {
+    if (num < 0) {    // Don't let num go below zero
       num = 0;
     }
   }
@@ -112,13 +110,13 @@ void dologic() {
   
   if (flag2 == 1) {  // If switch 2 has been pushed, increase number
     num = num + 1;
-    if (num > 99) {
+    if (num > 99) {   // Don't let num go above 99
       num = 99;
     }      
   }
 }
 
-//___________________________________________OUTPUT STUFF___________
+//___________________________________________OUTPUT___________
 
 void writeoutputs() {
 
@@ -130,7 +128,7 @@ void writeoutputs() {
   
   // Update the and scoreboard only if needed  
   if ( (flag0 + flag2) > 0 ) {  
-    myboard.showdisplay(num);
+    myboard.showdisplay(num);      // Output the number to the scoreboard
   }
   
   if (flag1 == 1) {
@@ -139,7 +137,7 @@ void writeoutputs() {
   
   
   if (flag3 == 1) {
-      spkr.stop();                   // Pause the song and lights
+      spkr.stop();                   // Stop the song and lights
       songlights.stop();
   }
   
@@ -157,38 +155,52 @@ void writeoutputs() {
 //}  
 
 void playsong(int n) {
- 
- if (n == 1) { spkr.start(levelupnotes, leveluptimes, leveluplength); songlights.start(levelupnotes, leveluptimes, leveluplength); } 
- else if (n == 2) { spkr.start(oneupnotes, oneuptimes, oneuplength); songlights.start(oneupnotes, oneuptimes, oneuplength); } 
- else if (n == 3) { spkr.start(gameovernotes, gameovertimes, gameoverlength); songlights.start(gameovernotes, gameovertimes, gameoverlength); } 
- else if (n == 4) { spkr.start(marionotes2, mariotimes2, 61); songlights.start(marionotes2, mariotimes2, 61); }  
- else { spkr.stop(); songlights.stop(); lednotes(0); }
-  
-}
 
- // Makes LED light up based on note frequency!
+  switch(n) {
+  case 1:      // Play song number 1
+    spkr.start(melody1, timing1, 9);
+    songlights.start(melody1, timing1, 9);
+    break;
+  case 2:      // Play song number 2
+    spkr.start(melody2, timing2, 3);
+    songlights.start(melody2, timing2, 3);
+    break;
+  case 3:      // Play song number 3
+    spkr.start(melody3, timing3, 12);
+    songlights.start(melody3, timing3, 12);
+    break;
+  case 4:      // Play song number 4
+    spkr.start(marionotes2, mariotimes2, 61);
+    songlights.start(marionotes2, mariotimes2, 61);
+    break;
+  default:     // Stop playing song
+    spkr.stop(); songlights.stop(); lednotes(0);
+    break;
+  }
+
 void lednotes(int note) {
+ // Makes LED light up based on note frequency!
 
  byte serdata[] = { 0b00000000, 0b00000000 } ;
  
  
- if ( note < NOTE_G1) { // do nothing 
+ if ( note < NOTE_G2) { // do nothing 
  } 
- else if ( note < NOTE_C2 ) { bitWrite(serdata[1], 0, 1); }
- else if ( note < NOTE_DS2 ) { bitWrite(serdata[1], 1, 1); }
- else if ( note < NOTE_FS2 ) { bitWrite(serdata[1], 2, 1); }
- else if ( note < NOTE_B2 ) { bitWrite(serdata[1], 3, 1); }
- else if ( note < NOTE_C3 ) { bitWrite(serdata[1], 4, 1); }
- else if ( note < NOTE_CS3 ) { bitWrite(serdata[1], 5, 1); }
- else if ( note < NOTE_D3 ) { bitWrite(serdata[1], 6, 1); }
- else if ( note < NOTE_DS3 ) { bitWrite(serdata[1], 7, 1); }
- else if ( note < NOTE_E3 ) { bitWrite(serdata[0], 0, 1); }
- else if ( note < NOTE_F3 ) { bitWrite(serdata[0], 1, 1); }
+ else if ( note < NOTE_C3 ) { bitWrite(serdata[0], 0, 1); }
+ else if ( note < NOTE_DS3 ) { bitWrite(serdata[0], 1, 1); }
  else if ( note < NOTE_FS3 ) { bitWrite(serdata[0], 2, 1); }
- else if ( note < NOTE_G3 ) { bitWrite(serdata[0], 3, 1); }
- else if ( note < NOTE_A3 ) { bitWrite(serdata[0], 4, 1); }
- else if ( note < NOTE_AS3 ) { bitWrite(serdata[0], 5, 1); }
- else if ( note < NOTE_B3 ) { bitWrite(serdata[0], 6, 1); }
+ else if ( note < NOTE_B3 ) { bitWrite(serdata[0], 3, 1); }
+ else if ( note < NOTE_C4 ) { bitWrite(serdata[0], 4, 1); }
+ else if ( note < NOTE_CS4 ) { bitWrite(serdata[0], 5, 1); }
+ else if ( note < NOTE_D4 ) { bitWrite(serdata[0], 6, 1); }
+ else if ( note < NOTE_DS4 ) { bitWrite(serdata[0], 7, 1); }
+ else if ( note < NOTE_E4 ) { bitWrite(serdata[1], 0, 1); }
+ else if ( note < NOTE_F4 ) { bitWrite(serdata[1], 1, 1); }
+ else if ( note < NOTE_FS4 ) { bitWrite(serdata[1], 2, 1); }
+ else if ( note < NOTE_G4 ) { bitWrite(serdata[1], 3, 1); }
+ else if ( note < NOTE_A4 ) { bitWrite(serdata[1], 4, 1); }
+ else if ( note < NOTE_AS4 ) { bitWrite(serdata[1], 5, 1); }
+ else if ( note < NOTE_B4 ) { bitWrite(serdata[1], 6, 1); }
  else  { bitWrite(serdata[0], 7, 1); }
  
  shregs.update(serdata); 
