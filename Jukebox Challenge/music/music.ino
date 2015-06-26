@@ -42,12 +42,11 @@ void loop() {
   readinputs();       // Read all the input sensors
 //  dologic();          // Perform logical operations
   writeoutputs();     // Control all output components
-  
+
 }
 
-
 void readinputs() {
-
+  
   flag0 = 0; flag1 = 0; flag2 = 0;
   
   // Use flags to record which switches have been pushed
@@ -57,11 +56,7 @@ void readinputs() {
   
 }
 
-void dologic(){
-}
-
 void writeoutputs() {
-
   spkr.update();
   
   if ( (flag0 + flag1 + flag2) > 0 ) {  // If at least one switch has been pushed
@@ -79,4 +74,6 @@ void writeoutputs() {
   }  
   }
 }
+
+
 

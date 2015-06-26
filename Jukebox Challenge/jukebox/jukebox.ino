@@ -19,15 +19,12 @@ int clkpin = 8, diopin = 9;
 
 // Declare scoreboard object named myboard
 Pb_scoreboard myboard(clkpin, diopin);
-//Pb_timedevent scoreboard(changenum);
-//int val[] = { 0 };
-//int timing[] = { 1000 };
 
 // Use speaker object
 Pb_speaker spkr(13);
 
 // Use shift registers to control LEDs on jukebox
-Pb_outputs shregs(10, 11, 12, 2); // (datapin, clkpin, latchpin, numreg)
+Pb_outputs shregs(10, 12, 11, 2); // (datapin, clkpin, latchpin, numreg)
 
 // Use timed events to avoid using delay
 Pb_timedevent songlights(lednotes);
