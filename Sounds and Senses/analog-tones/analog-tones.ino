@@ -44,11 +44,11 @@ void loop(){
 
 
   // Use the sensor values to produce a value to send to the speaker
-//  speakerVal = (sensorValue0+sensorValue1+sensorValue2)/3;
   speakerVal = (sensorValue0+sensorValue1+sensorValue2);      
       
   // Write to speaker with a 100ms tone duration.
+if (speakerVal > Min0 + Min1 + Min2 ){
   tone(speakerPin,speakerVal,100); 
-
+}
 }
 

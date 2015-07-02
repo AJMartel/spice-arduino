@@ -145,11 +145,6 @@ void writeoutputs() {
 
 //___________________________________________SPECIAL FUNCTIONS___________
 
-//void changenum(int ww) {
-//
-//    myboard.showdisplay(num);
-//    
-//}  
 
 void playsong(int n) {
 
