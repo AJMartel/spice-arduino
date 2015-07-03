@@ -19,11 +19,6 @@ int diopin = 9;
 // Declare scoreboard object named myboard
 Pb_scoreboard myboard(clkpin, diopin);
 
-// Use timed events to avoid using delay
-Pb_timedevent scoreboard(changenum);
-int val[] = { 0 };
-int timing[] = { 250 };
-
 // Use num as flag to keep track of some number
 int num, num2;
 
@@ -41,16 +36,14 @@ void setup() {
   
   flag0 = 0; flag1 = 0; flag2 = 0; flag3 = 0;
 
-// Put decimal partition at location 1
-  myboard.setpartition(1);
-  myboard.blankpredisplay();
-  myboard.blankpostdisplay(); 
-  
-  // Initial number flag values
+// Initial number flag values
   num = 0;
   num2 = 5;
   
-  scoreboard.loopstart(val, timing, 1);
+// Put decimal partition at location 1 and set initial values
+  myboard.setpartition(1);
+  myboard.postdisplay(num);
+  myboard.predisplay(num2);
 
 }
 
@@ -113,13 +106,7 @@ void dologic(){
 void writeoutputs() {
   
   // Update the scoreboard
-  scoreboard.update();    
-}
-  
-void changenum(int ww) {
-
     myboard.postdisplay(num);
     myboard.predisplay(num2);
-    
-}  
+  }
 

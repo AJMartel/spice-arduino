@@ -1,14 +1,14 @@
 #include <Pinball.h>
 
 // These are the led pins
-int redled = 12;
+int blueled = 12;
 int greenled = 11;
-int blueled = 9;
+int redled = 9;
 
 // These are the button pins
-int button1 = 10;
-int button2 = 8;
-int button3 = 7;
+int button1 = 10; // blue
+int button2 = 8; // green
+int button3 = 7; //red
 
 int bluestate = 0;   // FOR BLUE, WE WILL USE STATE
 int blueval;
@@ -42,7 +42,7 @@ void setup() {
 void loop() {
 
  // THIS IS RED CONTROL 
-  if ( digitalRead(button1) == LOW ) {
+  if ( digitalRead(button3) == LOW ) {
     digitalWrite(redled, 1);
   }
   else {
@@ -60,7 +60,7 @@ void loop() {
 
 // FOR BLUE, WE WILL TRY A TOGGLE SWITCH
   
-  blueval = digitalRead(button3);
+  blueval = digitalRead(button1);
   
   if ( bluesw.pushed( blueval ) ) {       // CHECKING IF BUTTON POSITION HAS CHANGED
   
