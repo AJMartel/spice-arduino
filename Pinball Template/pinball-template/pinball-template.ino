@@ -5,8 +5,9 @@
 //_________________________________________PIN DEFINITIONS, FLAGS_______
 
 int spkr_pin = 13;
-Pb_speaker spkr(spkr_pin);                 // Speaker pin 13
-Pb_outputs shregs(10, 12, 11, 2);    // Shift registers (data, clk, latch, number of registers)
+Pb_speaker spkr(spkr_pin);                 // Speaker
+Pb_outputs shregs(10, 12, 11, 2);    // Shift registers 
+//(data, clk, latch, number of registers)
 Pb_scoreboard myboard(8, 9);         // Scoreboard (clock, data)
 
 byte serdata[2];                     // For the shift registers
@@ -32,7 +33,7 @@ Pb_timedevent LEDflash(flash);
 Pb_timedevent scoreflash(flashscore);
 
 // Stopwatch for ir and piezo debounce
-Pb_stopwatch mywatch, mywatch_ir, mywatch_piezo;
+Pb_stopwatch mywatch_ir, mywatch_piezo;
 
 
 //__________________________________UPDATE FUNCTION_____
@@ -60,7 +61,7 @@ void setup() {
   shregs.update(serdata);
   delay(500);
 
-//  spkr.loopstart(beep_vals, beep_time, beep_len);
+  spkr.loopstart(beep_vals, beep_time, beep_len);
   
   myboard.setpartition(1); // Use scoreboard to keep track of lives
   myboard.predisplay(num_lives);
@@ -173,10 +174,11 @@ void writeoutputs() {
       LEDflash.start(lifeflash, lifetime, 20);   
     } else {
       LEDflash.loopstop();   
-      LEDflash.start(deathLED, deathtime, 17);
-      scoreflash.loopstart(scflashvals, scflashtime,2);
       spkr.loopstop();
       spkr.start(death_vals, death_time, death_len); 
+      serdata[0] = 0b00000000;
+      serdata[1] = 0b00000000;
+      scoreflash.loopstart(scflashvals, scflashtime,2);
     }
   }
   
@@ -202,24 +204,12 @@ void writeoutputs() {
 
 
 void flash(int val) {
- 
-//  if (val < 2) {
-//    if (val == 0) { serdata[0] = 0b00000000; serdata[1] = 0b00000000; }
-//    else { serdata[0] = 0b11111111; serdata[1] = 0b11111111; }  
-//  }
-//  else if (val < 17) {
-//    if (val == 2) {
-//      serdata[1] = 0b11111111; serdata[2] = 0b11111111; serdata[3] = 0b11111111; serdata[4] = 0b11111111;
-//    } else if (val < 11) {
-//      bitWrite(serdata[1], 10 - val, 0);    
-//    }
-//   else {
+
     if (serdata[0] == 0b00000000) { serdata[0] = 0b11111111; }
     else { serdata[0] = 0b00000000; }
     if (serdata[1] == 0b00000000) { serdata[1] = 0b11111111; }
     else { serdata[1] = 0b00000000; }
-//  }
-//  }
+
   shregs.update(serdata);
   
 }
