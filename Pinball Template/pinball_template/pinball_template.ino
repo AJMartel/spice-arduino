@@ -161,7 +161,6 @@ void writeoutputs() {
       spkr.start(coin_vals, coin_time, 15);
       break;
     case 3:
-//      spkr.start(funkynotes2, funkytimes2, funkylength2);
       spkr.start(oneup_vals, oneup_time, oneup_len);
       break;
     // You can add more cases
@@ -187,15 +186,13 @@ void writeoutputs() {
     spkr.start(scoreone_vals, scoreone_time, scoreone_len);
   }
   
-  myboard.predisplay(num_lives);
-  myboard.postdisplay(score);
+//  myboard.predisplay(num_lives);
+//  myboard.postdisplay(score);
 
   if (shreg_flag > 0) { shregs.update(serdata); }
   if (score_flag > 0) { 
-//    myboard.showdisplay(score_flag);
     myboard.predisplay(num_lives);
     myboard.postdisplay(score);
-//    scoreboard.update();
   }
   
 }
@@ -219,12 +216,10 @@ void flashscore(int val) {
  // Flash the scoreboard
  
   if (val == 1) { 
-//    myboard.blankdisplay();
     myboard.blankpredisplay();
     myboard.blankpostdisplay();   
   }
   else { 
-//    myboard.showdisplay(score_flag);
     myboard.predisplay(num_lives);
     myboard.postdisplay(score); 
   }

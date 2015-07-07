@@ -1,5 +1,7 @@
 // Store songs, soundeffects, and timed-event arrays here.
 
+//__________________________________________LED EFFECTS___________
+
 // LEDs flashing in loop throughout the game
 int flashloop[] = {1, 0};
 int flashtime[] = {1000, 1000};
@@ -16,7 +18,7 @@ int deathtime[] = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 5
 int scflashvals[] = {1, 0};
 int scflashtime[] = {500, 500};
 
-// Score up coin_sound timing array, use sidelifeflash[] array for side LED vals
+// Score up coin_sound timing array, use sidelifeflash[] array for LED vals
 int scoreuptime[] = {50, 50, 250, 50, 50, 50, 250, 50, 50, 50, 250, 50, 50, 50, 250, 50, 50, 50, 250, 50};
 
 // Shift register pattern
@@ -24,10 +26,7 @@ int shiftpatvals[] = {1, 16, 15, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
 int shiftpattime[] = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};
 
 
-
-
-
-// Songs and sound effects 
+//__________________________________TUNES AND SOUND EFFECTS___________
   
 // Beep Boop // Arduino is ignoring first two notes. Don't know why.
 int beep_len = 6;
@@ -62,59 +61,5 @@ int oneup_time[] = {100, 10, 100, 10, 100, 10, 100, 10, 100, 10, 100, 10, 100, 1
 int startup_len = 8;
 int startup_vals[] = {NOTE_A2, 0, NOTE_A2, 0, NOTE_A2, 0, NOTE_C3, 0};
 int startup_time[] = {100, 50, 100, 50, 100, 50, 1000, 10};
-
-// Funky Town, length needs to be longer by one, Arduino memory problems
-int funk_len = 34;
-int funk_vals[] = {NOTE_F3, NOTE_E3, NOTE_DS3, NOTE_D3, 0, NOTE_F3, 0, NOTE_E3, 0,\
-  NOTE_AS2, 0, NOTE_A2, 0, NOTE_DS3, 0, NOTE_D3, NOTE_GS3, NOTE_G3, NOTE_FS3, \
-  NOTE_C4, NOTE_B3, NOTE_AS3, 0, NOTE_F3, 0, NOTE_CS3, 0, NOTE_C3, 0, NOTE_B2, 0, NOTE_AS2, 0};
-int funk_time[] = {100, 100, 100, 200, 250, 200, 250, 200, 250,			 \
-  200, 250, 200, 250, 200, 250, 100, 100, 100, 100, \
-  100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 3000};
-
-int funkynotes2[] = {0,\
-\
- NOTE_G2, 0, NOTE_G2, NOTE_G2, 0, NOTE_G3, 0,\
- NOTE_AS3, 0, NOTE_G3, 0, NOTE_AS3, 0, NOTE_G3, 0,\
- NOTE_G2, 0, NOTE_G2, NOTE_G2, 0, NOTE_AS3, 0,\
- NOTE_C4, 0, NOTE_AS3, 0, NOTE_DS4, 0,\
- NOTE_G2, 0, NOTE_G2, NOTE_G2, 0, NOTE_G3, 0,\
- NOTE_AS3, 0, NOTE_G3, 0, NOTE_AS3, 0, NOTE_C4, 0,\
- NOTE_G2, 0, NOTE_G2, NOTE_G2, 0, NOTE_AS3, 0, \
- NOTE_C4, 0, NOTE_C4, 0, NOTE_DS3, 0,\
-\
- NOTE_G2, 0, NOTE_G2, NOTE_G2, 0, NOTE_G3, 0,\
- NOTE_AS3, 0, NOTE_G3, 0, NOTE_AS3, 0, NOTE_G3, 0,\
- NOTE_G2, 0, NOTE_G2, NOTE_G2, 0, NOTE_AS3, 0,\
- NOTE_C4, 0, NOTE_AS3, 0, NOTE_DS4, 0,\
- NOTE_G2, 0, NOTE_G2, NOTE_G2, 0, NOTE_G3, 0,\
- NOTE_AS3, 0, NOTE_G3, 0, NOTE_AS3, 0, NOTE_C4, 0,\
-\
- 0, NOTE_G4, 0, NOTE_G4, 0, NOTE_F4, 0, NOTE_DS4, 0, NOTE_C4,\
-0};
-
-int funkytimes2[] = {10,\
-\
- 300, 50,  50, 100, 100, 100, 100,\
- 100, 100, 100, 100, 100, 100, 100, 100,\
- 300, 50,  50, 100, 100, 100, 100,\
- 100, 100, 100, 100, 300, 100,\
- 300, 50,  50, 100, 100, 100, 100,\
- 100, 100, 100, 100, 100, 100, 100, 100,\
- 300, 50,  50, 100, 100, 100, 100,\
- 100, 100, 100, 100, 300, 100,\
-\
- 300, 50, 50, 100, 100, 100, 100,\
- 100, 100, 100, 100, 100, 100, 100, 100,\
- 300, 50,  50, 100, 100, 100, 100,\
- 100, 100, 100, 100, 300, 100,\
- 300, 50,  50, 100, 100, 100, 100,\
- 100, 100, 100, 100, 100, 100, 100, 100,\
-\
- 400, 300, 100, 100, 100, 100, 100, 100, 100, 1000,\
-\
-3000};
-
-int funkylength2 = 56*2-13+10+2;
 
 
