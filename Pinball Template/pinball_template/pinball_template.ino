@@ -23,7 +23,7 @@ Pb_switch roll_sw(50), drain_sw(50);
 int roll_flag, drain_flag;
 
 // Game specific global variables
-int ii, num_lives = 4, score = 0, score_flag = 0;
+int ii, shregbit = 0, num_lives = 4, score = 0, score_flag = 0;
 int ir_thresh = 800, piezo_thresh = 500;
 int ir_val, piezo_val, ir_delay, piezo_delay = 1000;
 int ir_flag = 0, piezo_flag = 0;
@@ -55,7 +55,7 @@ void setup() {
   // Enable pullup resistors on digital input pins
   digitalWrite(roll_pin, HIGH); digitalWrite(drain_pin, HIGH); 
 
-    serdata[0] = 0b11111111; // blue LEDs
+    serdata[0] = 0b00000000; // blue LEDs
     serdata[1] = 0b00000000; // red LEDs
   
   shregs.update(serdata);
@@ -67,10 +67,9 @@ void setup() {
   myboard.predisplay(num_lives);
   myboard.postdisplay(score);
   delay(250);
-//  myboard.showdisplay(55);
   LEDflash.loopstart(flashloop, flashtime, 2);
-  
   spkr.start(startup_vals, startup_time, startup_len);
+  LEDflash.start(startup_LED_vals, startup_LED_time, 17);
   
 }
 
@@ -113,7 +112,7 @@ void dologic() {
   
   score_flag = 0; // Used to decide whether to update scoreboard
 
-  if (roll_flag == 1) { score = score + 1; score_flag = 1; }
+  if (roll_flag == 1) { score = score + 1; score_flag = 1;}
   
   if (ir_val > ir_thresh) { 
     if (ir_flag == 0) {
@@ -156,6 +155,7 @@ void writeoutputs() {
   switch (score_flag) {
     case 1:
       spkr.start(coin_vals, coin_time, 3);
+      LEDflash.start(shiftpatvals, shiftpattime, 17);
       break;
     case 2:
       spkr.start(coin_vals, coin_time, 15);
@@ -180,14 +180,6 @@ void writeoutputs() {
       scoreflash.loopstart(scflashvals, scflashtime,2);
     }
   }
-  
-  if (roll_flag > 0) {
-    LEDflash.start(shiftpatvals, shiftpattime, 17);
-    spkr.start(scoreone_vals, scoreone_time, scoreone_len);
-  }
-  
-//  myboard.predisplay(num_lives);
-//  myboard.postdisplay(score);
 
   if (shreg_flag > 0) { shregs.update(serdata); }
   if (score_flag > 0) { 
@@ -201,14 +193,52 @@ void writeoutputs() {
 
 
 void flash(int val) {
-
+  
+  if (val < 2) { 
+     // array values 0 and 1 cause all LEDs to switch on and off
     if (serdata[0] == 0b00000000) { serdata[0] = 0b11111111; }
     else { serdata[0] = 0b00000000; }
     if (serdata[1] == 0b00000000) { serdata[1] = 0b11111111; }
     else { serdata[1] = 0b00000000; }
-
-  shregs.update(serdata);
+  }
   
+  else if (val == 3) {
+    // array value 3 turns all LEDs on
+    serdata[0] = 0b11111111;
+    serdata[1] = 0b11111111;
+  }
+  
+  else if (val == 4) {
+    // array value 4 turns all LEDs off
+    serdata[0] = 0b00000000;
+    serdata[1] = 0b00000000;
+  }
+  
+  // array values 5-16 aren't used
+
+  else if (val < 25) {
+    // array values 17-24 turn on red LEDs 0-7
+    shregbit = map(val, 17, 24, 0, 7);
+    bitWrite(serdata[1], shregbit, 1);
+  }
+  else if (val < 33) { 
+    // array values 25-32 turn on blue LEDs 0-7
+    shregbit = map(val, 25, 32, 0, 7);
+    bitWrite(serdata[0], shregbit, 1); 
+  }
+  else if (val < 41) {
+    // array values 33-40 turn off red LEDs 0-7
+    shregbit = map(val, 33, 40, 0, 7);
+    bitWrite(serdata[1], shregbit, 0);
+  }
+  else if (val < 49) { 
+    // array values 41-48 turn on blue LEDs 0-7
+    shregbit = map(val, 41, 48, 0, 7);
+    bitWrite(serdata[0], shregbit, 0); 
+  }
+  
+  shregs.update(serdata);
+
 }
 
 

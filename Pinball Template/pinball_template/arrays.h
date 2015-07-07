@@ -10,25 +10,25 @@ int flashtime[] = {1000, 1000};
 int lifeflash[] = {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0};
 int lifetime[] = {100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
 
-// Side and top LEDs when game is over
-int deathLED[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
-int deathtime[] = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};
+//Startup LEDs. Timing array total time is about equal to total of startup_time
+int startup_LED_vals[] = {3,  33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48};
+int startup_LED_time[] = {90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90};
 
 // Scoreflash at end game
 int scflashvals[] = {1, 0};
 int scflashtime[] = {500, 500};
 
-// Score up coin_sound timing array, use sidelifeflash[] array for LED vals
+// Score up coin_sound timing array, use lifeflash[] array for LED vals
 int scoreuptime[] = {50, 50, 250, 50, 50, 50, 250, 50, 50, 50, 250, 50, 50, 50, 250, 50, 50, 50, 250, 50};
 
-// Shift register pattern
-int shiftpatvals[] = {1, 16, 15, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+// Shift register pattern, has to start w/ 4 to turn off LEDs if they are already on
+int shiftpatvals[] = {4, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32};
 int shiftpattime[] = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};
 
 
 //__________________________________TUNES AND SOUND EFFECTS___________
   
-// Beep Boop // Arduino is ignoring first two notes. Don't know why.
+// Beep Boop 
 int beep_len = 6;
 int beep_vals[] = {NOTE_A2, 0, NOTE_D3, 0, NOTE_A2, 0};
 int beep_time[] = {100, 900, 100, 900, 100, 900};
@@ -46,11 +46,6 @@ int life_time[] = {125, 500, 10};
 // Coin sound
 int coin_vals[] = {NOTE_DS4, NOTE_GS4, 0, NOTE_DS4, NOTE_GS4, 0, NOTE_DS4, NOTE_GS4, 0, NOTE_DS4, NOTE_GS4, 0, NOTE_DS4, NOTE_GS4, 0};
 int coin_time[] = {125, 250, 10, 125, 250, 10, 125, 250, 10, 125, 250, 10, 125, 250, 10};
-
-// +1 score sound
-int scoreone_len = 2;
-int scoreone_vals[] = {NOTE_DS4, NOTE_GS4, 0};
-int scoreone_time[] = {125, 250, 10};
 
 // oneup sound
 int oneup_len = 18;
