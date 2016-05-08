@@ -33,14 +33,14 @@ Pb_timedevent LEDflash(flash);
 Pb_timedevent scoreflash(flashscore);
 
 // Stopwatch for ir and piezo debounce
-Pb_stopwatch mywatch_ir, mywatch_piezo;
+Pb_stopwatch piezo_watch, piezo2_watch;
 
 
 //__________________________________UPDATE FUNCTION_____
 
 void update_music_and_events() {
   
-  spkr.update();
+  spkr.update(); // Speaker
   LEDflash.update();
   scoreflash.update();
   
@@ -61,7 +61,7 @@ void setup() {
   shregs.update(serdata);
   delay(500);
 
-  spkr.loopstart(beep_vals, beep_time, beep_len);
+  spkr.loopstart(beep_vals, beep_time, beep_len); // Speaker
   
   myboard.setpartition(1); // Use scoreboard to keep track of lives
   myboard.predisplay(num_lives);
