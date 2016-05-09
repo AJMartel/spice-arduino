@@ -1,20 +1,18 @@
 #include <Pinball.h>
 
 // These are the led pins
-int redled = 12;
-int greenled = 11;
 int blueled = 9;
+int greenled = 11;
+int redled = 12;
 
 // These are the button pins
-int button1 = 10;
-int button2 = 8;
-int button3 = 7;
+int button1 = 10; // blue
+int button2 = 8;  // green
+int button3 = 7; // red
 
 Pb_switch sw1(200);
 Pb_switch sw2(200);
 Pb_switch sw3(200);
-
-int bluevalue;
 
 void setup() {
   

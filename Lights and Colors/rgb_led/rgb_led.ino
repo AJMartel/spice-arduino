@@ -1,9 +1,9 @@
 #include <Pinball.h>
 
 // These are the led pins
-int blueled = 12;
+int blueled = 9;
 int greenled = 11;
-int redled = 9;
+int redled = 12;
 
 // These are the button pins
 int button1 = 10; // blue
