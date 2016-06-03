@@ -27,6 +27,7 @@ Pb_speaker spkr(13);
 Pb_outputs shregs(10, 12, 11, 2); // (datapin, clkpin, latchpin, numreg)
 
 // Use timed events to avoid using delay
+void lednotes(int);
 Pb_timedevent songlights(lednotes);
 
 

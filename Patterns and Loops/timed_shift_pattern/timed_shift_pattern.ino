@@ -1,5 +1,6 @@
 #include <Pinball.h>
 
+void shiftpattern(int);
 Pb_timedevent dothis(shiftpattern);
 
 int values[] = {8, 9, 3, 2, 1, 0};

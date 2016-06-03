@@ -29,7 +29,9 @@ int ir_val, piezo_val, ir_delay, piezo_delay = 1000;
 int ir_flag = 0, piezo_flag = 0;
 
 // Timed events
+void flash(int);
 Pb_timedevent LEDflash(flash);
+void flashscore(int);
 Pb_timedevent scoreflash(flashscore);
 
 // Stopwatch for ir and piezo debounce

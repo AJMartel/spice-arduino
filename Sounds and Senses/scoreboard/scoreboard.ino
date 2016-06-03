@@ -9,6 +9,7 @@ int diopin = 9;
 Pb_scoreboard myboard(clkpin, diopin);
 
 // Use timed events to avoid delay
+void changenum(int)
 Pb_timedevent scoreboard(changenum);
 int val[] = { 0 };
 int timing[] = { 1000 };

@@ -1,5 +1,6 @@
 #include <Pinball.h>
 
+void blinkmyled(int);
 Pb_timedevent dothis(blinkmyled);
 
 int values[] = { 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0};
