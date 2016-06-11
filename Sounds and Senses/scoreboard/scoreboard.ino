@@ -1,5 +1,7 @@
 #include <Pinball.h>
 
+// Someone test this yet??
+
 // Pins for scoreboard
 int clkpin = 8;
 int diopin = 9;
