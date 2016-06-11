@@ -4,7 +4,6 @@
 int clkpin = 8;
 int diopin = 9;
 
-// Meaningless comment
 // Declare scoreboard object named myboard
 Pb_scoreboard myboard(clkpin, diopin);
 
