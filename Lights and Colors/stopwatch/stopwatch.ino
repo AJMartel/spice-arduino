@@ -20,8 +20,6 @@ void setup() {
 
   mywatch.start();
   
-  Serial.begin(9600);
-
 }
 
 
@@ -40,9 +38,6 @@ void loop() {
     ledbstate = !ledbstate;
     digitalWrite(ledb, ledbstate);
     mywatch.start();
-
-    Serial.print("led state is ");
-    Serial.println(ledbstate);
     
   }
   

@@ -5,21 +5,21 @@
 
 #include <Pinball.h>
 
-int sensorValue0 = 0; //value read from proximity sensor
-int sensorValue1 = 0; //value read from piezo sensor
-int sensorValue2 = 0; //value read from force sensitive resistor
+// Sensor pin and variables
+int piezo_pin = A0; // pin that we connect the piezo to
+int piezo_val = 0; // value read from piezo sensor
+int piezo_min = 5; // bottom of range
+int piezo_max = 800; // top of range
 
-// Record the minimum values of your sensors below, plus a little (say, +10)
-int Min0 = 210;
-int Min1 = 10;
-int Min2 = 10;
-
-int ledpin = 2; 
+// LED pin
+int greenled_pin = 2; 
 
 void setup(){
 
-    pinMode(ledpin, OUTPUT);
+  pinMode(greenled_pin, OUTPUT);     
   // note that analog inputs do not require pin mode settings
+ 
+
   
   //Serial monitor
   Serial.begin(9600);
@@ -30,27 +30,39 @@ void setup(){
 void loop(){
   
 // Here we read in the sensors on the analog pins using analogRead
-  sensorValue0 = analogRead(A0);
-  sensorValue1 = analogRead(A1);
-  sensorValue2 = analogRead(A2);
-  
-  // Use the Serial Monitor to find sensor thresholds
-  Serial.print(sensorValue0);
-  Serial.print(" "); // leaves a blank space
-  Serial.print(sensorValue1);
-  Serial.print(" "); // leaves a blank space
-  Serial.println(sensorValue2); // makes a new line
- 
-  // Use the sensor values to control the LED
-  if (sensorValue0 > Min0 && sensorValue1 > Min1 || sensorValue2 > Min2){
-    digitalWrite(ledpin, 1);
+// Using the stopwatch 
+  if (piezo_delay.time() > piezo_delaytime ){
+    piezo_val = analogRead(piezo_pin);
+    piezo_delay.start();
   }
-  else {
-    digitalWrite(ledpin, 0);
-  }  
   
-  
+  // map the sensor range to a range of four cases (case 0 being one of them)
+  int range = map(piezo_val, piezo_max, piezo_min, 0, 2);
 
-  
+  // do something different depending on the range value:
+  switch (range) {
+  case 0:    // hard knock, turn on green LEDs
+    Serial.print(piezo_val);
+    Serial.print(" ");
+    Serial.println("hard knock");
+    digitalWrite(greenled_pin, 1);
+    digitalWrite(redled_pin, 1);
+    break;
+    
+  case 1:    // light knock, turn on red LED
+    Serial.print(piezo_val);
+    Serial.print(" ");
+    Serial.println("light knock");
+    digitalWrite(greenled_pin, 0); 
+    digitalWrite(redled_pin, 1);
+    break;
+
+  case 2:    // no reading, keep LEDs off and don't print to SerialMonitor
+    digitalWrite(greenled_pin, 0); 
+    digitalWrite(redled_pin, 0);
+    break;
+  } 
+
+
 }
 

@@ -4,8 +4,8 @@
  */
 
 int sensorValue0 = 0; //value read from proximity sensor
-int sensorValue1 = 0; //value read from piezo sensor
-int sensorValue2 = 0; //value read from force sensitive resistor
+//int sensorValue1 = 0; //value read from piezo sensor
+//int sensorValue2 = 0; //value read from force sensitive resistor
 
 void setup(){
   //Serial monitor
@@ -18,15 +18,16 @@ void loop(){
   
 // Here we read in the sensors on the analog pins using analogRead
   sensorValue0 = analogRead(A0);
-  sensorValue1 = analogRead(A1);
-  sensorValue2 = analogRead(A2);
+//  sensorValue1 = analogRead(A1);
+//  sensorValue2 = analogRead(A2);
   
-// Use the Serial Monitor to watch each sensor at once
-  Serial.print(sensorValue0);
-  Serial.print(" "); // leaves a blank space
-  Serial.print(sensorValue1);
-  Serial.print(" "); // leaves a blank space
-  Serial.println(sensorValue2); // makes a new line
+// Use the Serial Monitor to watch the sensor
+  Serial.println(sensorValue0);
+  
+//  Serial.print(" "); // leaves a blank space
+//  Serial.print(sensorValue1);
+//  Serial.print(" "); // leaves a blank space
+//  Serial.println(sensorValue2); // makes a new line
   
 }
 

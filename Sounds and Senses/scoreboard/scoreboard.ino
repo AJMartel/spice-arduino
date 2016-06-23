@@ -1,7 +1,5 @@
 #include <Pinball.h>
 
-// Someone test this yet??
-
 // Pins for scoreboard
 int clkpin = 8;
 int diopin = 9;
@@ -10,7 +8,7 @@ int diopin = 9;
 Pb_scoreboard myboard(clkpin, diopin);
 
 // Use timed events to avoid delay
-void changenum(int)
+void changenum(int);
 Pb_timedevent scoreboard(changenum);
 int val[] = { 0 };
 int timing[] = { 1000 };

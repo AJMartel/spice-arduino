@@ -1,6 +1,6 @@
 #include <Pinball.h>
 
-#include "tunelibrary.h"
+#include "mytunes.h"
 
 //_________________________________________PIN DEFINITIONS_______
 // Jukebox needs four buttons for control
