@@ -13,8 +13,8 @@ Pb_scoreboard myboard(8, 9);         // Scoreboard (clock, data)
 byte serdata[2];                     // For the shift registers
 // serdata[1,0] are each 8 independent LEDs
 
-int ir_pin = A0, piezo_pin = A1;    // IR, Piezo pins
-int roll_pin = A3, drain_pin = 7;  // roller, drain switch pins
+int piezo_pin = A0;    // Piezo pins
+int drain_pin = 7, roll_pin = 6;  // pins for switches: drain (where the ball falls), roller switch
 
 // Switches for roll and drain 
 Pb_switch roll_sw(50), drain_sw(50);
@@ -24,18 +24,18 @@ int roll_flag, drain_flag;
 
 // Game specific global variables
 int ii, shregbit = 0, num_lives = 4, score = 0, score_flag = 0;
-int ir_thresh = 800, piezo_thresh = 500;
-int ir_val, piezo_val, ir_delay, piezo_delay = 1000;
-int ir_flag = 0, piezo_flag = 0;
+int piezo_thresh = 20;
+int piezo_val, piezo_delay = 1000;
+int piezo_flag = 0;
 
-// Timed events
+// Timed events - remember to declare the function used for each
 void flash(int);
 Pb_timedevent LEDflash(flash);
 void flashscore(int);
 Pb_timedevent scoreflash(flashscore);
 
-// Stopwatch for ir and piezo debounce
-Pb_stopwatch piezo_watch, piezo2_watch;
+// Stopwatch for piezo debounce
+Pb_stopwatch mywatch_piezo;
 
 
 //__________________________________UPDATE FUNCTION_____
@@ -101,8 +101,7 @@ void readinputs() {
   
   roll_flag = roll_sw.pushed(digitalRead(roll_pin));
   drain_flag = drain_sw.pushed(digitalRead(drain_pin));
-  
-  ir_val = analogRead(ir_pin);
+ 
   piezo_val = analogRead(piezo_pin);
   
 }
@@ -115,23 +114,11 @@ void dologic() {
   score_flag = 0; // Used to decide whether to update scoreboard
 
   if (roll_flag == 1) { score = score + 1; score_flag = 1;}
-  
-  if (ir_val > ir_thresh) { 
-    if (ir_flag == 0) {
-      score = score + 5; score_flag = 2; 
-      ir_flag = 1;
-      mywatch_ir.start();
-    }
-  } else if (ir_flag > 0) {
-    if (mywatch_ir.time() > ir_delay) {
-      ir_flag = 0;
-      mywatch_ir.stop();
-    }
-  }
+
   
   if (piezo_val > piezo_thresh) { 
     if (piezo_flag == 0) {
-      score = score + 5; score_flag = 3; 
+      score = score + 5; score_flag = 2; 
       piezo_flag = 1;
       mywatch_piezo.start();
     }
@@ -143,7 +130,7 @@ void dologic() {
   }
   
   
-  if (drain_flag == 1) { num_lives = num_lives - 1; score_flag = 4;}
+  if (drain_flag == 1) { num_lives = num_lives - 1; score_flag = 3;}
   
 }
 
@@ -156,11 +143,11 @@ void writeoutputs() {
   
   switch (score_flag) {
     case 1:
-      spkr.start(coin_vals, coin_time, 3);
+      spkr.start(coin_vals, coin_time, 3); // this plays the coin sound one time
       LEDflash.start(shiftpatvals, shiftpattime, 17);
       break;
     case 2:
-      spkr.start(coin_vals, coin_time, 15);
+      spkr.start(coin_vals, coin_time, 15); // this plays the coin sound five times
       break;
     case 3:
       spkr.start(oneup_vals, oneup_time, oneup_len);
