@@ -13,7 +13,7 @@ int piezo_min = 5; // bottom of range
 int piezo_max = 800; // top of range
 
 Pb_stopwatch piezo_delay;
-int piezo_delaytime = 10; // how long to wait between piezo readings
+int piezo_delaytime = 100; // how long to wait between piezo readings
 
 // LED pins
 int greenled_pin = 2; 
@@ -47,19 +47,17 @@ void loop(){
 
   // do something different depending on the range value:
   switch (range) {
-  case 0:    // hard knock, turn on green LEDs
+  case 0:    // hard knock, turn on green LED
     Serial.print(piezo_val);
     Serial.print(" ");
     Serial.println("hard knock");
     digitalWrite(greenled_pin, 1);
-    digitalWrite(redled_pin, 1);
     break;
     
   case 1:    // light knock, turn on red LED
     Serial.print(piezo_val);
     Serial.print(" ");
     Serial.println("light knock");
-    digitalWrite(greenled_pin, 0); 
     digitalWrite(redled_pin, 1);
     break;
 
