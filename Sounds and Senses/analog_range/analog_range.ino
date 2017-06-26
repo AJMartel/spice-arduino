@@ -9,8 +9,9 @@
 // Sensor pin and variables
 int piezo_pin = A0; // pin that we connect the piezo to
 int piezo_val = 0; // value read from piezo sensor
+int max_piezo_val = 0; // maximum piezo value read for each pulse
 int piezo_min = 5; // bottom of range
-int piezo_max = 800; // top of range
+int piezo_max = 1023; // top of range
 
 Pb_stopwatch piezo_delay;
 int piezo_delaytime = 100; // how long to wait between piezo readings
@@ -37,9 +38,18 @@ void loop(){
   
 // Here we read in the sensors on the analog pins using analogRead
 // Using the stopwatch 
-  if (piezo_delay.time() > piezo_delaytime ){
+//  if (piezo_delay.time() > piezo_delaytime ){
+//    piezo_val = analogRead(piezo_pin);
+//    piezo_delay.start();
+//  }
+
+  // read only the peak signal
+  
+  piezo_val = analogRead(piezo_pin);
+  
+  if (piezo_val > max_piezo_val){
+    last_piezo_val = piezo_val; // update the maximum value
     piezo_val = analogRead(piezo_pin);
-    piezo_delay.start();
   }
   
   // map the sensor range to a range of four cases (case 0 being one of them)
@@ -47,18 +57,18 @@ void loop(){
 
   // do something different depending on the range value:
   switch (range) {
-  case 0:    // hard knock, turn on green LED
+  case 0:    // hard knock, turn on red LED
     Serial.print(piezo_val);
     Serial.print(" ");
     Serial.println("hard knock");
-    digitalWrite(greenled_pin, 1);
+    digitalWrite(redled_pin, 1);
     break;
     
-  case 1:    // light knock, turn on red LED
+  case 1:    // light knock, turn on green LED
     Serial.print(piezo_val);
     Serial.print(" ");
     Serial.println("light knock");
-    digitalWrite(redled_pin, 1);
+    digitalWrite(greenled_pin, 1);
     break;
 
   case 2:    // no reading, keep LEDs off and don't print to SerialMonitor

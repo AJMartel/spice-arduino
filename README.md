@@ -1,3 +1,3 @@
 # SPICE Arduino Sketchbook
 
-Sketches corresponding to tutorials at [SPICE Engineering Camp](http://ayocom.github.io/spice-pinball/index.html).
+Sketches corresponding to tutorials at [SPICE Engineering Camp](http://agoering.github.io/spice-pinball/index.html).

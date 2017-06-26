@@ -9,7 +9,7 @@ int piezo_pin = A0; //pin that we connect the piezo to
 int piezo_val = 0; //value read from piezo sensor
 int piezo_thresh = 800; // minimum value of the sensor for which the LED will light
 
-int led_pin = 2; 
+int led_pin = 3; 
 
 void setup(){
 
