@@ -10,6 +10,7 @@
     * Analog sensor (potentiometer will do) attached to analog input 0
 
   modified from http://www.arduino.cc/en/Tutorial/Smoothing
+  http://agoering.github.io/spice-pinball/docs/analog-piezo/
 
 
 */
